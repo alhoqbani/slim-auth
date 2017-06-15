@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\User;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Respect\Validation\Validator as v;
+
 
 class AuthController extends BaseController
 {
@@ -16,6 +18,14 @@ class AuthController extends BaseController
     
     public function store(Request $request, Response $response, $args)
     {
+        $validation = $this->validator->validate($request, [
+            'name' => v::noWhitespace()->notEmpty(),
+        ]);
+        
+        if ($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('auth.create'));
+        }
+        
         $user = User::UpdateOrCreate([
             'name'     => $request->getParam('name'),
             'email'    => $request->getParam('email'),

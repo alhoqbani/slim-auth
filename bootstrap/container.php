@@ -14,3 +14,7 @@ $container['view'] = function ($container) {
     
     return $view;
 };
+
+$container['validator'] = function () {
+    return new App\Validation\Validator();
+};
