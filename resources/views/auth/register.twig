@@ -3,6 +3,7 @@
 {% block content %}
     <div class="col-sm-6 col-sm-offset-3">
         <form action="{{ path_for('auth.create') }}" method="post" novalidate>
+            {{ csrf.field | raw }}
             <div class="form-group  {{ errors.email ? 'has-error' : '' }}">
                 <label for="email">Email address</label>
                 <input type="email" name="email" class="form-control" id="email" placeholder="Email"

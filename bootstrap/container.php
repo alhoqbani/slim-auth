@@ -6,7 +6,7 @@ $container['view'] = function ($container) {
     $cahcePath = __DIR__ . '/../storage/cache/views';
     $view = new \Slim\Views\Twig($viewsPath, [
         'cache' => false,
-//        'cache' => $cahcePath,
+        //        'cache' => $cahcePath,
     ]);
     
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
@@ -17,4 +17,8 @@ $container['view'] = function ($container) {
 
 $container['validator'] = function () {
     return new App\Validation\Validator();
+};
+
+$container['csrf'] = function () {
+    return new Slim\Csrf\Guard();
 };
