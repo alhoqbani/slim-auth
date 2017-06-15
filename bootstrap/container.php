@@ -34,3 +34,16 @@ $container['auth'] = function () {
 $container['flash'] = function () {
     return new Slim\Flash\Messages();
 };
+
+$container['mail'] = function ($container) {
+    $config = $container['settings']['mail'];
+    // Create the Transport
+    $transport = (new Swift_SmtpTransport($config['host'], $config['port']))
+        ->setUsername($config['username'])
+        ->setPassword($config['password']);
+    
+    $mailer = new Swift_Mailer($transport);
+    
+    return (new App\Mail\Mailer\Mailer($mailer, $container['view']))
+        ->alwaysFrom($config['from']['address'], $config['from']['name']);
+};

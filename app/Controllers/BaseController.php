@@ -10,6 +10,7 @@ use Interop\Container\ContainerInterface;
  * @property  \App\Auth\Auth            $auth
  * @property  \App\Validation\Validator validator
  * @property  \Slim\Router              router
+ * @property  \App\Mail\Mailer\Mailer   mail
  */
 class BaseController
 {

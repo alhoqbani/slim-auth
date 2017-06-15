@@ -8,9 +8,7 @@ if (file_exists((dirname(__DIR__) . '/.env'))) {
 }
 
 $app = new Slim\App([
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
+    'settings' => require __DIR__ . '/settings.php',
 ]);
 
 require_once __DIR__ . '/container.php';
