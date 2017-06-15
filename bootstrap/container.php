@@ -11,6 +11,7 @@ $container['view'] = function ($container) {
     
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+    $view->addExtension(new \App\View\CsrfExtension($container['csrf']));
     $view->getEnvironment()->addGlobal('auth', [
         'check' => $container->auth->check(),
         'user'  => $container->auth->user(),

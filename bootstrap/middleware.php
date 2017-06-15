@@ -7,4 +7,4 @@ use App\Middleware\ValidationMiddleware;
 $app->add(new ValidationMiddleware($container));
 $app->add(new OldInputMiddleware($container));
 $app->add(new CsrfViewMiddleware($container));
-//$app->add($container->csrf);
+$app->add($container->csrf);
