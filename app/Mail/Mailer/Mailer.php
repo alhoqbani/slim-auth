@@ -2,6 +2,7 @@
 
 namespace App\Mail\Mailer;
 
+use App\Mail\Mailer\Contracts\MailableContract;
 use Slim\Views\Twig;
 use Swift_Message;
 
@@ -37,8 +38,22 @@ class Mailer
         return $this;
     }
     
-    public function send($view, $viewData, Callable $callback = null)
+    /**
+     * @param      $address
+     * @param null $name
+     *
+     * @return \App\Mail\Mailer\PendingMailable
+     */
+    public function to($address, $name = null)
     {
+        return (new PendingMailable($this))->to($address, $name);
+    }
+    
+    public function send($view, $viewData = [], Callable $callback = null)
+    {
+        if ($view instanceof MailableContract) {
+            return $this->sendMailable($view);
+        }
         $message = $this->buildMessage();
         call_user_func($callback, $message);
         $message->setBody($this->parseView($view, $viewData));
@@ -55,5 +70,16 @@ class Mailer
     protected function parseView($view, $viewData)
     {
         return $this->twig->fetch($view, $viewData);
+    }
+    
+    /**
+     * @param \App\Mail\Mailer\Mailable $mailable
+     *
+     * @return mixed
+     *
+     */
+    protected function sendMailable(Mailable $mailable)
+    {
+        return $mailable->send($this);
     }
 }
