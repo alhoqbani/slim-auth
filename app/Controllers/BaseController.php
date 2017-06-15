@@ -17,4 +17,11 @@ class BaseController
         $this->c = $container;
     }
     
+    function __get($name)
+    {
+        if ($this->c->has("{$name}")) {
+            return $this->c->{$name};
+        }
+    }
+    
 }

@@ -9,7 +9,8 @@ class HomeController extends BaseController
 {
     public function index(Request $request, Response $response, $args)
     {
-        return $this->c->view->render($response, 'home/index.twig');
+        dump($this->test);
+        return $this->view->render($response, 'home/index.twig');
     }
     
 }
