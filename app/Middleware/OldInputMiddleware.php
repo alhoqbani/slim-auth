@@ -6,11 +6,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 
-class ValidationMiddleware extends BaseMiddleware
+class OldInputMiddleware extends BaseMiddleware
 {
     
     /**
-     * Add validation errors to the response
+     * Return old input data with the response
      *
      * @param  \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
      * @param  \Psr\Http\Message\ResponseInterface      $response PSR7 response
@@ -20,9 +20,9 @@ class ValidationMiddleware extends BaseMiddleware
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        $_SESSION['errors'] = $_SESSION['errors'] ?? null;
-        $this->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
-        unset($_SESSION['errors']);
+        $_SESSION['old'] = $_SESSION['old'] ?? null;
+        $this->view->getEnvironment()->addGlobal('old', $_SESSION['old']);
+        $_SESSION['old'] = $request->getParams();
         $response = $next($request, $response);
         
         return $response;
