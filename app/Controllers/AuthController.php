@@ -25,7 +25,7 @@ class AuthController extends BaseController
         ]);
         
         if ($validation->failed()) {
-            return $response->withRedirect($this->router->pathFor('auth.create'));
+            return $response->withRedirect($this->router->pathFor('auth.register'));
         }
         
         $user = User::Create([
@@ -33,6 +33,7 @@ class AuthController extends BaseController
             'email'    => $request->getParam('email'),
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);
+        $this->auth->signIn($user);
         
         return $response->withRedirect($this->router->pathFor('home'));
     }
@@ -54,5 +55,12 @@ class AuthController extends BaseController
         
         return $response->withRedirect($this->router->pathFor('home'));
     }
+    
+    public function logout(Request $request, Response $response, $args)
+    {
+        $this->auth->logout();
+        return $response->withRedirect($this->router->pathFor('home'));
+    }
+    
     
 }

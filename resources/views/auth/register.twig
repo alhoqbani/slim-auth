@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="col-sm-6 col-sm-offset-3">
-        <form action="{{ path_for('auth.create') }}" method="post" novalidate>
+        <form action="{{ path_for('auth.register') }}" method="post" novalidate>
             {{ csrf.field | raw }}
             <div class="form-group  {{ errors.email ? 'has-error' : '' }}">
                 <label for="email">Email address</label>
