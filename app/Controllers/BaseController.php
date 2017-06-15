@@ -5,8 +5,9 @@ namespace App\Controllers;
 use Interop\Container\ContainerInterface;
 
 /**
- * @property  \Slim\Views\Twig $view
- * @property  \App\Auth\Auth $auth
+ * @property  \Slim\Views\Twig     $view
+ * @property  \Slim\Flash\Messages $flash
+ * @property  \App\Auth\Auth       $auth
  */
 class
 BaseController

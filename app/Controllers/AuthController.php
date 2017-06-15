@@ -34,6 +34,7 @@ class AuthController extends BaseController
             'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
         ]);
         $this->auth->signIn($user);
+        $this->flash->addMessage('success', 'Thank you, you\'re registered.');
         
         return $response->withRedirect($this->router->pathFor('home'));
     }
@@ -50,9 +51,10 @@ class AuthController extends BaseController
             $request->getParam('password')
         );
         if ( ! $auth) {
+            $this->flash->addMessage('error', 'Wrong !!');
             return $response->withRedirect($this->router->pathFor('auth.login'));
         }
-        
+        $this->flash->addMessage('info', 'Welcome back');
         return $response->withRedirect($this->router->pathFor('home'));
     }
     
