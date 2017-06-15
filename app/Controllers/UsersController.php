@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Exception\NotFoundException;
+use Respect\Validation\Validator as v;
 
 class UsersController extends BaseController
 {
@@ -27,6 +28,33 @@ class UsersController extends BaseController
         }
         
         return $this->view->render($response, 'users/show.twig', compact('user'));
+    }
+    
+    public function create(Request $request, Response $response, $args)
+    {
+        return $this->view->render($response, 'users/create.twig');
+    }
+    
+    public function store(Request $request, Response $response, $args)
+    {
+        $validation = $this->validator->validate($request, [
+            'email'    => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
+            'name'     => v::notEmpty()->alpha(),
+            'password' => v::noWhitespace()->notEmpty(),
+        ]);
+        
+        if ($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('users.create'));
+        }
+        
+        $user = User::Create([
+            'name'     => $request->getParam('name'),
+            'email'    => $request->getParam('email'),
+            'password' => password_hash($request->getParam('password'), PASSWORD_DEFAULT),
+        ]);
+        $this->flash->addMessage('success', 'User ' . $user->name . ' was created');
+        
+        return $response->withRedirect($this->router->pathFor('users.create'));
     }
     
     public function destroy(Request $request, Response $response, $args)
