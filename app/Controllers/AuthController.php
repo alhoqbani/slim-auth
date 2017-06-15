@@ -19,7 +19,7 @@ class AuthController extends BaseController
     public function store(Request $request, Response $response, $args)
     {
         $validation = $this->validator->validate($request, [
-            'email'    => v::noWhitespace()->notEmpty()->email(),
+            'email'    => v::noWhitespace()->notEmpty()->email()->emailAvailable(),
             'name'     => v::notEmpty()->alpha(),
             'password' => v::noWhitespace()->notEmpty(),
         ]);

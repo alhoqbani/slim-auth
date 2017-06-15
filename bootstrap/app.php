@@ -17,3 +17,5 @@ require_once __DIR__ . '/container.php';
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/../routes/web.php';
 require_once __DIR__ . '/middleware.php';
+
+\Respect\Validation\Validator::with('App\Validation\Rules');
