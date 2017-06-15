@@ -23,3 +23,23 @@ $(function () {
         });
     })
 });
+
+function deleteUser(id) {
+    console.log(csrf_token.name.value);
+    var data = {};
+    data[csrf_token.name.key] = csrf_token.name.value;
+    data[csrf_token.value.key] = csrf_token.value.value;
+
+    $.ajax({
+        url: "/users/" + id,
+        data: data,
+        dataType: "JSON",
+        type: 'DELETE',
+        success: function (data, status, xhr) {
+            csrf_token = JSON.parse(xhr.getResponseHeader('X-CSRF-Token'));
+            console.log(csrf_token);
+            $('#'+id).hide();
+        }
+    });
+    console.log(id)
+}

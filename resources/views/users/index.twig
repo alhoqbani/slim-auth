@@ -3,11 +3,14 @@
 {% block content %}
     <div class="col-sm-6 col-sm-offset-3">
         <h2>Users</h2>
-        <ul>
+        <ul class="list-group">
             {% for user in users %}
-                <a href="{{ path_for('users.show', {id:user.id}) }}">
-                    <li>{{ user.name }}</li>
-                </a>
+                <li class="list-group-item" id="{{ user.id }}"><a href="{{ path_for('users.show', {id:user.id}) }}">
+                        {{ user.name }}
+                    </a>
+                    <button id="delete_user" onclick="deleteUser({{ user.id }})"
+                            class="glyphicon glyphicon-remove-circle pull-left"></button>
+                </li>
             {% endfor %}
         </ul>
 

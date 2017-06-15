@@ -7,6 +7,7 @@ use App\Controllers\UsersController;
 $app->group('/users', function () {
     $this->get('', UsersController::class . ':index')->setName('users.index');
     $this->get('/{id}', UsersController::class . ':show')->setName('users.show');
+    $this->delete('/{id}', UsersController::class . ':destroy')->setName('users.delete');
 });
 $app->group('', function () {
     $this->get('/register', AuthController::class . ':create')->setName('auth.register');

@@ -29,4 +29,18 @@ class UsersController extends BaseController
         return $this->view->render($response, 'users/show.twig', compact('user'));
     }
     
+    public function destroy(Request $request, Response $response, $args)
+    {
+        try {
+            $user = User::where('id', $args['id'])->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            return $response->withJson(['error' => 'user not found'], 404);
+        }
+        if ($user->delete()) {
+            return $response->withJson([], 204);
+        }
+        
+        return $response->withJson(['error' => 'Something went wrong'], 400);
+    }
+    
 }
