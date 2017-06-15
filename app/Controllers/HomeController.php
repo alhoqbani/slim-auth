@@ -17,8 +17,14 @@ class HomeController extends BaseController
 //            $message->to($user->email, $user->name)
 //                ->subject('Welcome to slim-auth');
 //        });
-        
+
         $this->mail->to($user->email, $user->name)->send(new Welcome($user));
+        
+//        $this->mail->send('emails/welcome.twig', ['user' => $user], function ($message) use ($user) {
+//            $message->to($user->email)
+//                ->attach(__DIR__ . '/../../composer.json')
+//                ->subject('Composer File');
+//        });
         
         return $this->view->render($response, 'home/index.twig');
     }

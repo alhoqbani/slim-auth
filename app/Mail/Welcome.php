@@ -28,6 +28,9 @@ class Welcome extends Mailable
         return $this->subject("Welcome to Slim-Auth {$this->user->name}")
             ->view('emails/welcome.twig')
             ->from('mailable@welcome.com', 'Hamoud')
+            ->attach(__DIR__ . '/../../composer.json')
+            ->attach(__DIR__ . '/../../composer.json')
+            ->attach(__DIR__ . '/../../composer.json')
             ->with([
                 'user' => $this->user,
             ]);

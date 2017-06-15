@@ -59,5 +59,11 @@ class MessageBuilder
         return $this->swiftMessage;
     }
     
+    public function attach($file)
+    {
+        $this->swiftMessage->attach(\Swift_Attachment::fromPath($file));
+        return $this;
+    }
+    
     
 }

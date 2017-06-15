@@ -8,6 +8,7 @@ abstract class Mailable implements MailableContract
 {
     
     protected $viewData = [];
+    protected $attachments = [];
     protected $view;
     protected $to = [];
     protected $from = [];
@@ -22,7 +23,15 @@ abstract class Mailable implements MailableContract
             if ($this->from) {
                 $message->from($this->from['address'], $this->from['name']);
             }
+            $this->buildAttachments($message);
         });
+    }
+    
+    public function attach($file)
+    {
+        $this->attachments[] = $file;
+        
+        return $this;
     }
     
     public function to($address, $name = null)
@@ -58,6 +67,15 @@ abstract class Mailable implements MailableContract
         $this->viewData = $viewData;
         
         return $this;
+    }
+    
+    protected function buildAttachments($message)
+    {
+        foreach ($this->attachments as $file) {
+            $message->attach($file);
+        }
+        
+        return $message;
     }
     
 }
