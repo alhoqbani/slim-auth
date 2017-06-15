@@ -52,16 +52,48 @@ class AuthController extends BaseController
         );
         if ( ! $auth) {
             $this->flash->addMessage('error', 'Wrong !!');
+            
             return $response->withRedirect($this->router->pathFor('auth.login'));
         }
         $this->flash->addMessage('info', 'Welcome back');
+        
         return $response->withRedirect($this->router->pathFor('home'));
     }
     
     public function logout(Request $request, Response $response, $args)
     {
         $this->auth->logout();
+        
         return $response->withRedirect($this->router->pathFor('home'));
+    }
+    
+    public function getPassword(Request $request, Response $response, $args)
+    {
+        return $this->view->render($response, 'auth/password.twig');
+    }
+    
+    public function postPassword(Request $request, Response $response, $args)
+    {
+        $validation = $this->validator->validate($request, [
+            'current_password' =>
+                v::noWhitespace()
+                    ->notEmpty()
+                    ->matchesPassword($this->auth->user()->password),
+            'new_password'     => v::noWhitespace()->notEmpty(),
+        ]);
+        
+        if ($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('auth.password'));
+        }
+        
+        $this->auth->user()->update([
+            'password' => password_hash($request->getParam('new_password'), PASSWORD_DEFAULT),
+        ]);
+        $this->flash->addMessage('success', 'Passwrd was changed');
+        
+        return $response->withRedirect($this->router->pathFor('home'));
+        
+        
     }
     
     
