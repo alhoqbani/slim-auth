@@ -11,8 +11,7 @@ use Interop\Container\ContainerInterface;
  * @property  \App\Validation\Validator validator
  * @property  \Slim\Router              router
  */
-class
-BaseController
+class BaseController
 {
     
     /**
