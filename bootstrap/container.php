@@ -22,3 +22,6 @@ $container['validator'] = function () {
 $container['csrf'] = function () {
     return new Slim\Csrf\Guard();
 };
+$container['auth'] = function () {
+    return new App\Auth\Auth();
+};

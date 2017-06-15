@@ -1,0 +1,22 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+        <form action="{{ path_for('auth.login') }}" method="post" novalidate>
+            {{ csrf.field | raw }}
+            <div class="form-group  {{ errors.email ? 'has-error' : '' }}">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                       value="{{ old.email }}">
+                <div class="help-block"> {{ errors.email | first }} </div>
+            </div>
+            <div class="form-group {{ errors.password ? 'has-error' : '' }}">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <div class="help-block"> {{ errors.password | first }} </div>
+            </div>
+            <button type="submit" class="btn btn-default">Sign In</button>
+        </form>
+    </div>
+
+{% endblock %}

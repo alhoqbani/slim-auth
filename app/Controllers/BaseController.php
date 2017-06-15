@@ -6,8 +6,10 @@ use Interop\Container\ContainerInterface;
 
 /**
  * @property  \Slim\Views\Twig $view
+ * @property  \App\Auth\Auth $auth
  */
-class BaseController
+class
+BaseController
 {
     
     /**
