@@ -1,0 +1,12 @@
+html, body {
+    min-height: 100%;
+}
+
+body {
+    direction: ltr;
+    position: relative;
+}
+
+.rbody {
+    direction: rtl;
+}
