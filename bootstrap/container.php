@@ -2,8 +2,11 @@
 $container = $app->getContainer();
 
 $container['view'] = function ($container) {
-    $view = new \Slim\Views\Twig(__DIR__ . '/../resources/views', [
-        'cache' => __DIR__ . '/../storage/cache/views',
+    $viewsPath = __DIR__ . '/../resources/views';
+    $cahcePath = __DIR__ . '/../storage/cache/views';
+    $view = new \Slim\Views\Twig($viewsPath, [
+        'cache' => false,
+//        'cache' => $cahcePath,
     ]);
     
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
