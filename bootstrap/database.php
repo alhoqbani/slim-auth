@@ -18,4 +18,8 @@ $capsule->addConnection([
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+$container['db'] = function () use ($capsule) {
+    return new $capsule;
+};
+
 //require 'migration.php';

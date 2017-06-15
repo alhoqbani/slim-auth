@@ -11,7 +11,6 @@ class HomeController extends BaseController
     
     public function index(Request $request, Response $response, $args)
     {
-        dump(User::all());
         return $this->view->render($response, 'home/index.twig');
     }
     
