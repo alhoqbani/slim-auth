@@ -26,6 +26,7 @@ class CsrfExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('csrf_field', [$this, 'csrfField']),
+            new \Twig_SimpleFunction('csrf_token', [$this, 'csrfToken']),
         ];
     }
     
@@ -35,5 +36,13 @@ class CsrfExtension extends \Twig_Extension
             <input type='hidden' name='{$this->csrf->getTokenNameKey()}' value='{$this->csrf->getTokenName()}'>
             <input type='hidden' name='{$this->csrf->getTokenValueKey()}' value='{$this->csrf->getTokenValue()}'>
             ";
+    }
+    
+    public function csrfToken()
+    {
+        return [
+            'name'  => ['key' => $this->csrf->getTokenNameKey(), 'value' => $this->csrf->getTokenName()],
+            'value' => ['key' => $this->csrf->getTokenValueKey(), 'value' => $this->csrf->getTokenValue()],
+        ];
     }
 }

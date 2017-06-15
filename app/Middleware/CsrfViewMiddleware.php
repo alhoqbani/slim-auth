@@ -24,9 +24,17 @@ class CsrfViewMiddleware extends BaseMiddleware
             'field' => "
             <input type='hidden' name='{$this->csrf->getTokenNameKey()}' value='{$this->csrf->getTokenName()}'>
             <input type='hidden' name='{$this->csrf->getTokenValueKey()}' value='{$this->csrf->getTokenValue()}'>
-            "
+            ",
         ]);
+        $csrf = [
+            'name'  => ['key' => $this->csrf->getTokenNameKey(), 'value' => $this->csrf->getTokenName()],
+            'value' => ['key' => $this->csrf->getTokenValueKey(), 'value' => $this->csrf->getTokenValue()],
+        ];
+        $csrfObject = json_encode($csrf);
+        
+        /** @var Response $response */
         $response = $next($request, $response);
+        $response = $response->withHeader('X-CSRF-Token', $csrfObject);
         
         return $response;
     }

@@ -96,5 +96,11 @@ class AuthController extends BaseController
         
     }
     
+    public function forget(Request $request, Response $response, $args)
+    {
+        return $response->withHeader('Content-Type', 'application/json')
+            ->withStatus(201)->write(json_encode(['message' => 'ok']));
+    }
+    
     
 }

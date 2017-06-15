@@ -8,6 +8,7 @@ $app->group('', function () {
     $this->post('/register', AuthController::class . ':store');
     $this->get('/login', AuthController::class . ':getLogin')->setName('auth.login');
     $this->post('/login', AuthController::class . ':postLogin');
+    $this->post('/forget', AuthController::class . ':forget');
 })->add(new \App\Middleware\GuestMiddleware($container));
 
 $app->group('', function () {
