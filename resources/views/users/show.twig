@@ -1,0 +1,13 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2>Users</h2>
+        <ul>
+            <a href="{{ path_for('users.show', {id:user.id}) }}">
+                <li>{{ user.name }}</li>
+            </a>
+        </ul>
+
+    </div>
+{% endblock %}
