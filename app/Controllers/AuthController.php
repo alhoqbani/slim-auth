@@ -98,8 +98,13 @@ class AuthController extends BaseController
     
     public function forget(Request $request, Response $response, $args)
     {
-        return $response->withHeader('Content-Type', 'application/json')
-            ->withStatus(201)->write(json_encode(['message' => 'ok']));
+        $user = User::where('email', $request->getParam('email'))->first();
+        if ( ! $user) {
+            return $response->withJson(['message' => 'not found']);
+            
+        }
+        
+        return $response->withJson(['message' => 'ok']);
     }
     
     

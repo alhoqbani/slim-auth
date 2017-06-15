@@ -17,6 +17,7 @@ $(function () {
             contentType: false,
             type: 'POST',
             success: function (data, status, xhr) {
+                console.log(data);
                 csrf_token = JSON.parse(xhr.getResponseHeader('X-CSRF-Token'));
             }
         });
