@@ -23,3 +23,16 @@ $container['db'] = function () use ($capsule) {
 };
 
 //require 'migration.php';
+
+//$container['db'] = function () use ($capsule) {
+//    $pdo = new \PDO(
+//        getenv('DB_CONNECTION') . ':host=' .
+//        getenv('DB_HOST') . ';dbname=' . getenv('DB_DATABASE'),
+//        getenv('DB_USERNAME'),
+//        getenv('DB_PASSWORD')
+//    );
+//    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+//
+//    return $pdo;
+//};
