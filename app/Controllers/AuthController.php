@@ -19,7 +19,9 @@ class AuthController extends BaseController
     public function store(Request $request, Response $response, $args)
     {
         $validation = $this->validator->validate($request, [
-            'name' => v::noWhitespace()->notEmpty(),
+            'email'    => v::noWhitespace()->notEmpty()->email(),
+            'name'     => v::notEmpty()->alpha(),
+            'password' => v::noWhitespace()->notEmpty(),
         ]);
         
         if ($validation->failed()) {

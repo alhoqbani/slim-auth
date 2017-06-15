@@ -1,15 +1,13 @@
 <?php
+namespace App\Middleware;
 
-namespace App\Controllers;
-
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * @property  \Slim\Views\Twig $view
  */
-class BaseController
+class BaseMiddleware
 {
-    
     /**
      * @var \Interop\Container\ContainerInterface
      */
@@ -26,5 +24,4 @@ class BaseController
             return $this->c->{$name};
         }
     }
-    
 }
